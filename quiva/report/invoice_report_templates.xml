@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[contains(@class, 'page')]" position="attributes">
+            <attribute name="t-attf-class">page o_invoice_full_logo {{ o.company_id.logo and 'o_invoice_full_logo--has-logo' or '' }}</attribute>
+            <attribute name="t-att-style"><t t-if="o.company_id.logo">background-image: url('data:image/png;base64,{{o.company_id.logo.decode('utf-8')}}');</t></attribute>
+        </xpath>
+
+        <xpath expr="//div[contains(@class, 'o_company_logo')]/img" position="attributes">
+            <attribute name="class">o_invoice_full_logo__img</attribute>
+        </xpath>
+
+        <xpath expr="//div[contains(@class, 'o_company_logo')]" position="after">
+            <t t-if="o.company_id.logo">
+                <style type="text/css">
+                    .o_invoice_full_logo.o_invoice_full_logo--has-logo {
+                        background-repeat: no-repeat;
+                        background-position: center top;
+                        background-size: cover;
+                        background-origin: content-box;
+                    }
+
+                    .o_invoice_full_logo.o_invoice_full_logo--has-logo .o_company_logo {
+                        margin-bottom: 2rem;
+                    }
+
+                    .o_invoice_full_logo.o_invoice_full_logo--has-logo .o_invoice_full_logo__img {
+                        display: none;
+                    }
+
+                    @media print {
+                        .o_invoice_full_logo.o_invoice_full_logo--has-logo {
+                            background-position: center center;
+                        }
+                    }
+                </style>
+            </t>
+        </xpath>
+    </template>
+</odoo>
